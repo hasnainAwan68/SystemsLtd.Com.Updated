@@ -120,6 +120,9 @@ namespace SystemsLtd.Training.ECommerce.API.Controllers
             return this.ProductService.DeleteProduct(product);
         }
         #endregion
-
+        public int? Sum(int? a, int? b)
+        {
+            return a + b;
+        }
     }
 }
