@@ -15,6 +15,7 @@ namespace SystemsLtd.Training.ECommerce.Service.Interface
         bool UpdateProduct(Product product);
 
         bool DeleteProduct(Product product);
+        void GetProduct();
         #endregion
     }
 }

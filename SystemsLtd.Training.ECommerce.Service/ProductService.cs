@@ -57,6 +57,11 @@ namespace SystemsLtd.Training.ECommerce.Service
         {
             return this.ProductRepository.DeleteProduct(product);
         }
+
+        public void GetProduct()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }
