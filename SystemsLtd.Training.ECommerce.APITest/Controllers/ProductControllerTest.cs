@@ -73,7 +73,7 @@ namespace SystemsLtd.Training.ECommerce.APITest.Controllers
         {
             //Arrange
             var service = new Mock<IProductService>();
-            Product P = (Product)service.Setup(s => s.GetProduct(2)).Returns(this.ProductData.FirstOrDefault(x => x.ProductId ==
+            var P = service.Setup(s => s.GetProduct(2)).Returns(this.ProductData.FirstOrDefault(x => x.ProductId ==
             2));
             var controller = new ProductController(null, service.Object);
 
@@ -85,6 +85,63 @@ namespace SystemsLtd.Training.ECommerce.APITest.Controllers
 
 
         }
+        [Fact]
+        public void GetProductbyIDNegTest()
+        {
+            //Arrange
+            var service = new Mock<IProductService>();
+            var P = service.Setup(s => s.GetProduct(-2)).Returns(this.ProductData.FirstOrDefault(x => x.ProductId ==
+            -2));
+            var controller = new ProductController(null, service.Object);
+
+            //Act
+            var res = controller.GetProduct(-2);
+
+            //Assert
+            Assert.Null(res);
+
+
+        }
+
+        [Fact]
+        public void GetProductbyIDNegTest2()
+        {
+            //Arrange
+            var service = new Mock<IProductService>();
+            var P = service.Setup(s => s.GetProduct(100)).Returns(this.ProductData.FirstOrDefault(x => x.ProductId ==
+            100));
+
+
+            var controller = new ProductController(null, service.Object);
+
+            //Act
+            var res = controller.GetProduct(100);
+
+            //Assert
+            Assert.Null(res);
+
+
+        }
+        [Fact]
+        public void GetProductbyIDNegTest3()
+        {
+            //Arrange
+            var service = new Mock<IProductService>();
+            var P = service.Setup(s => s.GetProduct(2)).Returns(this.ProductData.FirstOrDefault(x => x.ProductId ==
+            null));
+
+
+            var controller = new ProductController(null, service.Object);
+
+            //Act
+            var res = controller.GetProduct(2);
+
+            //Assert
+            Assert.Null(res);
+
+
+        }
+
 
         [Fact]
         public void AddProductTest()
@@ -104,6 +161,13 @@ namespace SystemsLtd.Training.ECommerce.APITest.Controllers
         {
             //Arrange
             var service = new Mock<IProductService>();
+            //var P = service.Setup(s => s.GetProduct(2)).Returns(this.ProductData.FirstOrDefault(x => x.ProductId ==
+            //2));
+
+            service.Setup(s => s.GetProducts()).Returns(
+               this.ProductData
+               );
+            var controller = new ProductController(null, service.Object);
 
             //Act
 
@@ -111,19 +175,6 @@ namespace SystemsLtd.Training.ECommerce.APITest.Controllers
 
         }
 
-        [Fact]
-        public void GetProductbyIdTest2()
-        {
-            //Arrange
-            var controller = new ProductController(null, null);
-
-
-            //Act
-            var res = controller.GetProductByID(2);
-
-            //Assert
-            Assert.NotNull(res);
-        }
 
     }
 }
