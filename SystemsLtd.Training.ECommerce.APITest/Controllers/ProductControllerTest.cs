@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SystemsLtd.Training.ECommerce.API.Controllers;
+using SystemsLtd.Training.ECommerce.API.Models;
 using SystemsLtd.Training.ECommerce.Model;
 using SystemsLtd.Training.ECommerce.Service.Interface;
 using Xunit;
@@ -148,11 +149,30 @@ namespace SystemsLtd.Training.ECommerce.APITest.Controllers
         {
             //Arrange
             var service = new Mock<IProductService>();
+            var product = new ProductAddVM
+            {
+                ProductName = "Lenovo",
+                ProductDescription = "11th Gen",
+                PurchasePrice = 100,
+                SalesPrice = 1115,
+                Active = true,
+                CategoryId = 4
+            };
+            service.Setup(s => s.AddProduct(It.IsAny<Product>())).Returns(
+            this.ProductData.Count() + 1
+            );
 
-            //Act
+            var controller = new ProductController(null, service.Object);
 
-            //Assert
 
+
+            // Act
+            var res = controller.AddProduct(product);
+
+
+
+            //Arrange
+            Assert.Equal(this.ProductData.Count() + 1, res);
         }
 
 

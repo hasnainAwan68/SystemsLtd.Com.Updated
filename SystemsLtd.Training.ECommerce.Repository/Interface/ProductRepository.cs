@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using SystemsLtd.Training.ECommerce.Model;
-
 namespace SystemsLtd.Training.ECommerce.Repository.Interface
 {
     public interface IProductRepository
